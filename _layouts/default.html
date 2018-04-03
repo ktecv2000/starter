@@ -1,31 +1,73 @@
----
-title: 'This is my Site Title'
----
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Site Title {% if page.url != '/index.html' %}| {{page.title}}{% endif %}</title>
-  <meta charset='UTF-8'/>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <link rel='alternate' type='application/rss+xml' title='RSS' href='SITEURLGOESHERE/blog.rss' />
-  <link rel='shortcut icon' href='{{site.baseurl}}/img/favicon.ico' type='image/x-icon' />
-  <link href='{{site.baseurl}}/site.css' rel='stylesheet' />
-</head>
-<body>
-  <div class='container'>
-    <div class='col12 clearfix'>
-      <div class='header col6 margin3 pad4h'>
-        <div class='clearfix col12'>
-          <div class='menu fr'>
-            <a class='{% if page.section == "blog" %}active{% endif %}' href='{{site.baseurl}}/'>Blog</a>
-            <a class='{% if page.url == "about/" %}active{% endif %}' href='{{site.baseurl}}/about'>About</a>
-            <a href='//github.com/prose/starter'>Fork on GitHub</a>
-          </div>
-          <h1 class='title'><a href='{{site.baseurl}}/'>{{page.title}}</a></h1>
+<html lang="en-us">
+
+  {% include head.html %}
+
+  <body>
+
+    {% include sidebar.html %}
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" rel="bookmark" title="Home" class="masthead-link">
+              {{ site.title }}
+            </a> by
+            <a href="/about/" rel="bookmark" title="About" class="masthead-link">
+              {{ site.author.name }}
+            </a>
+            <small>{{ site.tagline }}</small>
+            <!-- Buttons  -->
+            <a class="soc-icons" rel="bookmark" title="Atom feed" href="/atom.xml">
+              <svg class="icon-rss"></svg>
+            </a>
+            <a class="soc-icons" rel="external" title="@pavdmyt Twitter account" href="{{ site.author.twitter }}">
+              <svg class="icon-bird"></svg>
+            </a>
+            <a class="soc-icons" rel="external" title="My GitHub repos" href="{{ site.author.github }}">
+              <svg class="icon-git"></svg>
+            </a>
+          </h3>
         </div>
       </div>
+
+      <div class="container content">
+        {{ content }}
+
+        <!-- Disqus comments -->
+        {% include disqus_comments.html %}
+
+        <!-- Footer -->
+        <div class="footer">
+          <p class="copyright">
+            &copy; Copyright {{ site.time | date: '%Y' }} by Pavel Dmytrenko.
+          </p>
+        </div>
+
+      </div>
     </div>
-    {{content}}
-  </div>
-  <script src='{{site.baseurl}}/site.js'></script>
-</body>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  </body>
+</html>

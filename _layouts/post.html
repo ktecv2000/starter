@@ -1,0 +1,39 @@
+---
+layout: default
+---
+
+<!-- Tags -->
+<ul class="tags">
+  {% for tag in page.tags %}
+    <li><a href="/tags#{{ tag }}" class="tag">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
+
+<!-- Title and Date -->
+<div class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <span class="post-date">
+    <svg class="icon-calendar"></svg>
+    {{ page.date | date_to_long_string }}
+  </span>
+  {{ content }}
+
+  <!-- Previous / Next post -->
+  <br>
+  {% if page.previous %}
+    <p style="font-size:90%">Previous post:
+      <a href="{{ page.previous.url }}">
+        {{ page.previous.title }}
+      </a>
+    </p>
+  {% endif %}
+
+  {% if page.next %}
+    <p style="font-size:90%">Next post:
+      <a href="{{ page.next.url }}">
+        {{ page.next.title }}
+      </a>
+    </p>
+  {% endif %}
+
+</div>

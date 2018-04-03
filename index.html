@@ -1,18 +1,54 @@
 ---
+title: Home
 layout: default
-section: blog
+sitemap:
+  priority: 0.9
 ---
 
-<div class='listing col6 pad4h margin3'>
-  {% for item in site.categories.blog limit:1000 %}
-    {% capture date %}{{ item.date | date: '%B %Y' }}{% endcapture %}
-    {% capture ndate %}{{ item.next.date | date: '%B %Y' }}{% endcapture %}
+<div class="posts">
+  {% for post in paginator.posts %}
 
-    {% if date != ndate %}
-      <h4 class='month'>{{item.date | date: '%B %Y'}}</h4>
-    {% endif %}
-    <a class='item' href='{{site.baseurl}}{{item.url}}'>{{item.title}} <span class='date'>&#126; {{item.date | date:"%b %d"}}</span></a>
+  <!-- Tags -->
+  <ul class="tags">
+    {% for tag in post.tags %}
+      <li><a href="/tags#{{ tag }}" class="tag">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <!-- Title and Date -->
+  <div class="post">
+
+    <h1 class="post-title">
+      <a href="{{ post.url }}" rel="bookmark" title="Permalink to {{ post.title }}">{{ post.title }}</a>
+    </h1>
+
+    <span class="post-date">
+      <svg class="icon-calendar"></svg>
+      {{ post.date | date_to_long_string }}
+    </span>
+
+    <!-- Excerpt -->
+    {{ post.excerpt }}
+    <a class="continue-reading" href="{{ post.url }}" rel="bookmark" title="Permalink to {{ post.title }}">Continue Reading...</a>
+
+  </div>
   {% endfor %}
 </div>
 
-{% include rss-link.html %}
+<!-- Pagination -->
+<!-- <div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}/">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ site.baseurl }}/page{{paginator.previous_page}}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div> -->

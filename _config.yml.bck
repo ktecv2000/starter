@@ -1,32 +1,30 @@
----
-title: Hackollege
-timezone: GMT
-collections:
-  posts:
-    title: Posts
-    output: true
-  uploads:
-    title: Uploads
-    output: true
+baseurl: /starter
 permalink: pretty
-relative_permalinks: false
-tagline: ''
-url: 
-description: Hello
-paginate: 10
-highlighter: 
+markdown: rdiscount
 prose:
   rooturl: '_posts'
+  siteurl: 'http://prose.github.io/starter/'
+  relativeLinks: 'http://prose.github.io/starter/links.jsonp'
+  media: 'media'
   metadata:
     _posts:
+      - name: "category"
+        field:
+          element: "hidden"
+          value: "blog"
       - name: "layout"
         field:
           element: "hidden"
-          value: "post"
+          value: "blog"
       - name: "title"
         field:
           element: "text"
           label: "Title"
+          value: ""
+      - name: "splash"
+        field:
+          element: "text"
+          label: "Splash image"
           value: ""
       - name: "tags"
         field:
@@ -42,31 +40,18 @@ prose:
               value: "pears"
             - name: "Mangos"
               value: "mangos"
+    _posts/static:
+      - name: "layout"
+        field:
+          element: "hidden"
+          value: "page"
+      - name: "title"
+        field:
+          element: "text"
+          label: "Title"
+          value: ""
       - name: "permalink"
         field:
           element: "text"
-          label: "permalink"
+          label: "Permalink"
           value: ""
-author:
-  name: 
-  email: 
-  url: ''
-  github: https://github.com/Hackollege
-  twitter: 
-version: 1.1.0
-github:
-  repo: hackollege.github.io
-plugins:
-- jekyll-paginate
-excerpt_separator: "<!--more-->"
-exclude:
-- Gemfile
-- Gemfile.lock
-- LICENSE.md
-- README.md
-- output
-- Gruntfile.js
-- package.json
-- tasks.py
-- node_modules
-- dist
